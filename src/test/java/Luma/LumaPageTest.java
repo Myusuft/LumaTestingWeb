@@ -40,12 +40,12 @@ public class LumaPageTest {
         home.clickCreateAnAccount();
 
         createAccountPage create = new createAccountPage(driver);
-        create.setFirstName("Muhammad");
-        create.setLastName("Yusuf franchise");
+        create.setFirstName("Ekas");
+        create.setLastName("Ekas franchise");
         create.clickSubscribe();
-        create.setEmail("mhyusuft111@gmail.com");
-        create.setPassword("YusufFranchise777");
-        create.setConfirmPassword("YusufFranchise777");
+        create.setEmail("ekas111@gmail.com");
+        create.setPassword("EkasFranchise777");
+        create.setConfirmPassword("EkasFranchise777");
         create.clickCreateAccount();
         accountPage success = new accountPage(driver);
         String url = success.getUrlAccount();
@@ -59,8 +59,8 @@ public class LumaPageTest {
         home.clickSignIn();
 
         signInPage signIn = new signInPage(driver);
-        signIn.setEmail("mhyusuft999@gmail.com");
-        signIn.setPassword("YusufFranchise777");
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
         signIn.clickSignInBTN();
 
         accountPage account = new accountPage(driver);
@@ -81,8 +81,8 @@ public class LumaPageTest {
         home.clickSignIn();
 
         signInPage signIn = new signInPage(driver);
-        signIn.setEmail("mhyusuft777@gmail.com");
-        signIn.setPassword("YusufFranchise777");
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
         signIn.clickSignInBTN();
 
         accountPage product = new accountPage(driver);
@@ -107,8 +107,8 @@ public class LumaPageTest {
         home.clickSignIn();
 
         signInPage signIn = new signInPage(driver);
-        signIn.setEmail("mhyusuft777@gmail.com");
-        signIn.setPassword("YusufFranchise777");
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
         signIn.clickSignInBTN();
 
         accountPage product = new accountPage(driver);
@@ -142,17 +142,191 @@ public class LumaPageTest {
         home.clickSignIn();
 
         signInPage signIn = new signInPage(driver);
-        signIn.setEmail("mhyusuft777@gmail.com");
-        signIn.setPassword("YusufFranchise777");
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
         signIn.clickSignInBTN();
 
         accountPage product = new accountPage(driver);
+        product.setMen();
+        product.setTops();
+        product.setTees();
         product.setClickCart();
         product.setCheckout();
 
         checkOutPage checkout = new checkOutPage(driver);
         String url = checkout.getUrlCheckOut();
         assertEquals("https://magento.softwaretestingboard.com/checkout/", url);
+    }
+
+    //Masih error
+    @Test
+    @Order(7)
+    public void testSummaryCheck(){
+        homePage home = new homePage(driver);
+        home.clickSignIn();
+
+        signInPage signIn = new signInPage(driver);
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
+        signIn.clickSignInBTN();
+
+        accountPage product = new accountPage(driver);
+        product.setMen();
+        product.setTops();
+        product.setTees();
+        product.setClickCart();
+        product.setCheckout();
+
+        String actualJumlahProduk = "8 Items in Cart";
+        String[] actualItem1 = new String[] {"Logan HeatTec® Tee", "4", "$96.00", "M", "Black"};
+        String[] actualItem2 = new String[] {"Balboa Persistence Tee", "4", "$116.00", "S", "Green"};
+
+        checkOutPage checkout = new checkOutPage(driver);
+        checkout.itemDetail();
+//        checkout.cartItem();
+    }
+
+    @Test
+    @Order(8)
+    public void testShippingAddress(){
+        homePage home = new homePage(driver);
+        home.clickSignIn();
+
+        signInPage signIn = new signInPage(driver);
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
+        signIn.clickSignInBTN();
+
+        accountPage product = new accountPage(driver);
+        product.setMen();
+        product.setTops();
+        product.setTees();
+        product.setClickCart();
+        product.setCheckout();
+
+        checkOutPage checkout = new checkOutPage(driver);
+        checkout.setCompany("PT. Yusuf Franchise");
+        checkout.setAddress("Jl. Raya Cikarang");
+        checkout.setCity("Bekasi");
+        checkout.setState();
+        checkout.setZip("17530");
+        checkout.setCountry();
+        checkout.setPhone("081234567890");
+        checkout.setMethod();
+        checkout.clickContinue();
+
+    }
+
+    @Test
+    @Order(9)
+    public void testPaymentAddress(){
+        homePage home = new homePage(driver);
+        home.clickSignIn();
+
+        signInPage signIn = new signInPage(driver);
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
+        signIn.clickSignInBTN();
+
+        accountPage product = new accountPage(driver);
+        product.setMen();
+        product.setTops();
+        product.setTees();
+        product.setClickCart();
+        product.setCheckout();
+
+        checkOutPage checkout = new checkOutPage(driver);
+        checkout.setCompany("PT. Yusuf Franchise");
+        checkout.setAddress("Jl. Raya Cikarang");
+        checkout.setCity("Bekasi");
+        checkout.setState();
+        checkout.setZip("17530");
+        checkout.setCountry();
+        checkout.setPhone("081234567890");
+        checkout.setMethod();
+        checkout.clickContinue();
+
+        String actualAddress = "Muhammad Yusuf franchise\n" +
+                "Jl. Raya Cikarang\n" +
+                "Bekasi, California 17530\n" +
+                "United States\n" +
+                "081234567890";
+
+       assertEquals(actualAddress, checkout.checkAddress());
+
+    }
+
+
+    //Error di button place order
+    @Test
+    @Order(10)
+    public void testPlaceOrder(){
+        homePage home = new homePage(driver);
+        home.clickSignIn();
+
+        signInPage signIn = new signInPage(driver);
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
+        signIn.clickSignInBTN();
+
+        accountPage product = new accountPage(driver);
+        product.setMen();
+        product.setTops();
+        product.setTees();
+        product.setClickCart();
+        product.setCheckout();
+
+        checkOutPage checkout = new checkOutPage(driver);
+        checkout.setCompany("PT. Yusuf Franchise");
+        checkout.setAddress("Jl. Raya Cikarang");
+        checkout.setCity("Bekasi");
+        checkout.setState();
+        checkout.setZip("17530");
+        checkout.setCountry();
+        checkout.setPhone("081234567890");
+        checkout.setMethod();
+        checkout.clickContinue();
+
+        checkout.clickPlaceOrder();
+    }
+
+
+    //Error di button place order
+    @Test
+    @Order(11)
+    public void testOrderSuccess(){
+        homePage home = new homePage(driver);
+        home.clickSignIn();
+
+        signInPage signIn = new signInPage(driver);
+        signIn.setEmail("ekas111@gmail.com");
+        signIn.setPassword("EkasFranchise777");
+        signIn.clickSignInBTN();
+
+        accountPage product = new accountPage(driver);
+        product.setMen();
+        product.setTops();
+        product.setTees();
+        product.setClickCart();
+        product.setCheckout();
+
+        checkOutPage checkout = new checkOutPage(driver);
+        checkout.setCompany("PT. Yusuf Franchise");
+        checkout.setAddress("Jl. Raya Cikarang");
+        checkout.setCity("Bekasi");
+        checkout.setState();
+        checkout.setZip("17530");
+        checkout.setCountry();
+        checkout.setPhone("081234567890");
+        checkout.setMethod();
+        checkout.clickContinue();
+
+        checkout.clickPlaceOrder();
+
+        checkout.clickOrderNumber();
+        String expectedOrderNumber = "Order # 000011346";
+        orderPage order = new orderPage(driver);
+        assertEquals(expectedOrderNumber, order.getOrderNumber());
     }
 
 }
